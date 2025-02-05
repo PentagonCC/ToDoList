@@ -7,7 +7,9 @@ public class Manager {
     private HashMap<Integer, Task> taskList;
     private HashMap<Integer, Epic> epicList;
     private HashMap<Integer, SubTask> subTaskList;
-    public int id = 0;
+    public int taskId = 0;
+    public int epicId = 0;
+    public int subTaskId = 0;
 
     public Manager(){
         this.taskList = new HashMap<>();
