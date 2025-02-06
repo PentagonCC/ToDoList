@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.List;
+
 public class Task {
 
     private String title;
@@ -54,6 +56,15 @@ public class Task {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Task: " +
+                title + '\n' +
+                description + '\n' +
+                id + '\n' +
+                status;
     }
 }
 

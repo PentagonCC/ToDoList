@@ -18,4 +18,5 @@ public class Epic extends Task {
     public HashMap<Integer, SubTask> getSubTaskList() {
         return subTaskList;
     }
+
 }

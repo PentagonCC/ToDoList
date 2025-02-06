@@ -3,6 +3,7 @@ package org.example;
 public class Main {
     public static void main(String[] args) {
         InMemoryTaskManager manager = new InMemoryTaskManager();
+        InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
         Epic epic1 = new Epic("HM", "made hm", manager.epicId++);
         Epic epic2 = new Epic("pool", "go swim", manager.epicId++);
         SubTask subTask1 = new SubTask("made math", "calculate number", manager.subTaskId++, epic1.getId());
@@ -13,15 +14,20 @@ public class Main {
         manager.createSubTask(subTask1);
         manager.createSubTask(subTask2);
         manager.createSubTask(subTask3);
-        subTask1.setStatus(Status.IN_PROGRESS);
-        manager.changeSubTask(subTask1, subTask1.getId());
-        subTask1.setStatus(Status.DONE);
-        manager.changeSubTask(subTask1, subTask1.getId());
-        subTask2.setStatus(Status.DONE);
-        manager.changeSubTask(subTask2, subTask2.getId());
-        System.out.println(manager.getEpicById(1));
-        System.out.println(manager.getEpicList());
-        manager.deleteSubTaskById(3);
-        manager.deleteEpicById(1);
+//        subTask1.setStatus(Status.IN_PROGRESS);
+//        manager.changeSubTask(subTask1, subTask1.getId());
+//        subTask1.setStatus(Status.DONE);
+//        manager.changeSubTask(subTask1, subTask1.getId());
+//        subTask2.setStatus(Status.DONE);
+//        manager.changeSubTask(subTask2, subTask2.getId());
+//        manager.getEpicById(1);
+//        manager.getSubTaskById(1);
+//        System.out.println(manager.history());
+        manager.getEpicById(0);
+        manager.getSubTaskById(2);
+        System.out.println(historyManager.getHistory());
+//        System.out.println(manager.getEpicList());
+//        manager.deleteSubTaskById(3);
+//        manager.deleteEpicById(1);
     }
 }

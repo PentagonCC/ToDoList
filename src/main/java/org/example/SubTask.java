@@ -22,4 +22,8 @@ public class SubTask extends Task {
         this.epicId = epicId;
     }
 
+    @Override
+    public String toString() {
+        return super.toString() + '\n' + "Связана с эпиком:" + epicId;
+    }
 }

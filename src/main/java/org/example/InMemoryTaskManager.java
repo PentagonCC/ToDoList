@@ -1,12 +1,15 @@
 package org.example;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class InMemoryTaskManager implements TaskManager{
 
     private HashMap<Integer, Task> taskList;
     private HashMap<Integer, Epic> epicList;
     private HashMap<Integer, SubTask> subTaskList;
+    private HistoryManager lastViewList = Managers.getDefaultHistory();
     public int taskId = 0;
     public int epicId = 0;
     public int subTaskId = 0;
@@ -49,36 +52,51 @@ public class InMemoryTaskManager implements TaskManager{
     }
 
     @Override
-    public Task getTaskById(int taskId){
+    public String getTaskById(int taskId){
         Task searchTask = null;
         for(Integer id: taskList.keySet()){
             if(id.equals(taskId)){
                 searchTask = taskList.get(taskId);
+                if(lastViewList.getHistory().size() == 10){
+                    lastViewList.getHistory().remove(0);
+                }
+                lastViewList.getHistory().add(searchTask);
+                break;
             }
         }
-        return searchTask;
+        return searchTask != null ? searchTask.toString() : "Задача не найдена";
     }
 
     @Override
-    public SubTask getSubTaskById(int subTaskId){
+    public String getSubTaskById(int subTaskId){
         SubTask searchTask = null;
         for(Integer id: subTaskList.keySet()){
             if(id.equals(subTaskId)){
                 searchTask = subTaskList.get(subTaskId);
+                if(lastViewList.getHistory().size() == 10){
+                    lastViewList.getHistory().remove(0);
+                }
+                lastViewList.getHistory().add(searchTask);
+                break;
             }
         }
-        return searchTask;
+        return searchTask != null ? searchTask.toString() : "Подзадача не найдена";
     }
 
     @Override
-    public Epic getEpicById(int epicId){
+    public String getEpicById(int epicId){
         Epic searchEpic = null;
         for(Integer id: epicList.keySet()){
             if(id.equals(epicId)){
                 searchEpic = epicList.get(epicId);
+                if(lastViewList.getHistory().size() == 10){
+                    lastViewList.getHistory().remove(0);
+                }
+                lastViewList.getHistory().add(searchEpic);
+                break;
             }
         }
-        return searchEpic;
+        return searchEpic != null ? searchEpic.toString() : "Epic не найден";
     }
 
     @Override

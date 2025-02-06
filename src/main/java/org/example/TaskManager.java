@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.HashMap;
+import java.util.List;
 
 interface TaskManager {
 
@@ -16,11 +17,11 @@ interface TaskManager {
 
     void clearEpicList();
 
-    Task getTaskById(int taskId);
+    String getTaskById(int taskId);
 
-    SubTask getSubTaskById(int subTaskId);
+    String getSubTaskById(int subTaskId);
 
-    Epic getEpicById(int epicId);
+    String getEpicById(int epicId);
 
     void createTask(Task newTask);
 
