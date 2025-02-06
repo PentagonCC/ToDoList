@@ -2,7 +2,7 @@ package org.example;
 
 public class Main {
     public static void main(String[] args) {
-        Manager manager = new Manager();
+        InMemoryTaskManager manager = new InMemoryTaskManager();
         Epic epic1 = new Epic("HM", "made hm", manager.epicId++);
         Epic epic2 = new Epic("pool", "go swim", manager.epicId++);
         SubTask subTask1 = new SubTask("made math", "calculate number", manager.subTaskId++, epic1.getId());

@@ -2,7 +2,7 @@ package org.example;
 
 import java.util.HashMap;
 
-public class Manager {
+public class InMemoryTaskManager implements TaskManager{
 
     private HashMap<Integer, Task> taskList;
     private HashMap<Integer, Epic> epicList;
@@ -11,38 +11,44 @@ public class Manager {
     public int epicId = 0;
     public int subTaskId = 0;
 
-    public Manager(){
+    public InMemoryTaskManager(){
         this.taskList = new HashMap<>();
         this.epicList = new HashMap<>();
         this.subTaskList = new HashMap<>();
     }
 
-
+    @Override
     public HashMap<Integer, Task> getTaskList() {
         return taskList;
     }
 
+    @Override
     public HashMap<Integer, Epic> getEpicList() {
         return epicList;
     }
 
+    @Override
     public HashMap<Integer, SubTask> getSubTaskList() {
         return subTaskList;
     }
 
+    @Override
     public void clearTaskList(){
         taskList.clear();
     }
 
+    @Override
     public void clearSubTaskList(){
         subTaskList.clear();
     }
 
+    @Override
     public void clearEpicList(){
         clearSubTaskList();
         epicList.clear();
     }
 
+    @Override
     public Task getTaskById(int taskId){
         Task searchTask = null;
         for(Integer id: taskList.keySet()){
@@ -53,6 +59,7 @@ public class Manager {
         return searchTask;
     }
 
+    @Override
     public SubTask getSubTaskById(int subTaskId){
         SubTask searchTask = null;
         for(Integer id: subTaskList.keySet()){
@@ -63,6 +70,7 @@ public class Manager {
         return searchTask;
     }
 
+    @Override
     public Epic getEpicById(int epicId){
         Epic searchEpic = null;
         for(Integer id: epicList.keySet()){
@@ -73,20 +81,24 @@ public class Manager {
         return searchEpic;
     }
 
+    @Override
     public void createTask(Task newTask){
         taskList.put(newTask.getId(), newTask);
     }
 
+    @Override
     public void createSubTask(SubTask newSubTask){
         subTaskList.put(newSubTask.getId(), newSubTask);
         epicList.get(newSubTask.getEpicId()).getSubTaskList().put(newSubTask.getId(), newSubTask);
         updateStatusEpic(epicList.get(newSubTask.getEpicId()));
     }
 
+    @Override
     public void createEpic(Epic newEpic){
         epicList.put(newEpic.getId(), newEpic);
     }
 
+    @Override
     public void changeTask(Task chagedTask, int idOLdTask){
         for(Integer id: taskList.keySet()){
             if(id.equals(idOLdTask)){
@@ -95,6 +107,7 @@ public class Manager {
         }
     }
 
+    @Override
     public void changeSubTask(SubTask changedSubtask, int idOLdSubTask){
         for(Integer id: subTaskList.keySet()){
             if(id.equals(idOLdSubTask)){
@@ -105,6 +118,7 @@ public class Manager {
         }
     }
 
+    @Override
     public void changeEpic(Epic changedEpic, int idOLdEpic){
         for(Integer id: epicList.keySet()){
             if(id.equals(idOLdEpic)){
@@ -113,6 +127,7 @@ public class Manager {
         }
     }
 
+    @Override
     public void deleteTaskById(int taskId){
         for(Integer id: taskList.keySet()){
             if (id.equals(taskId)){
@@ -121,6 +136,7 @@ public class Manager {
         }
     }
 
+    @Override
     public void deleteSubTaskById(int subTaskId){
         for(Integer id: subTaskList.keySet()){
             if(id.equals(subTaskId)){
@@ -130,6 +146,7 @@ public class Manager {
         }
     }
 
+    @Override
     public void deleteEpicById(int epicId){
         for(Integer id: epicList.keySet()){
             if(id.equals(epicId)){
@@ -140,6 +157,7 @@ public class Manager {
         }
     }
 
+    @Override
     public void updateStatusEpic(Epic epic){
         int counterSubTask = 0;
         for (SubTask subTask: epic.getSubTaskList().values()){
@@ -154,9 +172,8 @@ public class Manager {
         }
     }
 
+    @Override
     public HashMap<Integer, SubTask> getEpicSubTask(Epic epic){
         return epic.getSubTaskList();
     }
-
 }
-
