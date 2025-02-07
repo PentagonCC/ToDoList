@@ -3,12 +3,11 @@ package org.example;
 public class Main {
     public static void main(String[] args) {
         InMemoryTaskManager manager = new InMemoryTaskManager();
-        InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
         Epic epic1 = new Epic("HM", "made hm", manager.epicId++);
         Epic epic2 = new Epic("pool", "go swim", manager.epicId++);
         SubTask subTask1 = new SubTask("made math", "calculate number", manager.subTaskId++, epic1.getId());
         SubTask subTask2 = new SubTask("made math", "calculate number 2", manager.subTaskId++, epic1.getId());
-        SubTask subTask3 = new SubTask("search", "search place for swimming", manager.subTaskId++, epic2.getId());
+        SubTask subTask3 = new SubTask("search", "search place for swimming", manager.subTaskId++, epic1.getId());
         manager.createEpic(epic1);
         manager.createEpic(epic2);
         manager.createSubTask(subTask1);
@@ -24,8 +23,9 @@ public class Main {
 //        manager.getSubTaskById(1);
 //        System.out.println(manager.history());
         manager.getEpicById(0);
+        manager.getEpicById(1);
         manager.getSubTaskById(2);
-        System.out.println(historyManager.getHistory());
+        System.out.println(manager.historyManager.getHistory());
 //        System.out.println(manager.getEpicList());
 //        manager.deleteSubTaskById(3);
 //        manager.deleteEpicById(1);

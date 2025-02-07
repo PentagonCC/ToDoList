@@ -8,7 +8,7 @@ public class InMemoryTaskManager implements TaskManager {
     private final HashMap<Integer, Task> taskList;
     private final HashMap<Integer, Epic> epicList;
     private final HashMap<Integer, SubTask> subTaskList;
-    private final HistoryManager lastViewList = Managers.getDefaultHistory();
+    public HistoryManager historyManager = Managers.getDefaultHistory();
     public int taskId = 0;
     public int epicId = 0;
     public int subTaskId = 0;
@@ -54,10 +54,7 @@ public class InMemoryTaskManager implements TaskManager {
     public String getTaskById(int taskId) {
         Task searchTask = taskList.get(taskId);
         if (searchTask != null) {
-            if (lastViewList.getHistory().size() == 10) {
-                lastViewList.getHistory().remove(0);
-            }
-            lastViewList.getHistory().add(searchTask);
+            historyManager.add(searchTask);
         }
         return searchTask != null ? searchTask.toString() : "Задача не найдена";
     }
@@ -66,10 +63,7 @@ public class InMemoryTaskManager implements TaskManager {
     public String getSubTaskById(int subTaskId) {
         SubTask searchTask = subTaskList.get(subTaskId);
         if (searchTask != null) {
-            if (lastViewList.getHistory().size() == 10) {
-                lastViewList.getHistory().remove(0);
-            }
-            lastViewList.getHistory().add(searchTask);
+            historyManager.add(searchTask);
         }
         return searchTask != null ? searchTask.toString() : "Подзадача не найдена";
     }
@@ -78,10 +72,7 @@ public class InMemoryTaskManager implements TaskManager {
     public String getEpicById(int epicId) {
         Epic searchEpic = epicList.get(epicId);
         if (searchEpic != null) {
-            if (lastViewList.getHistory().size() == 10) {
-                lastViewList.getHistory().remove(0);
-            }
-            lastViewList.getHistory().add(searchEpic);
+            historyManager.add(searchEpic);
         }
         return searchEpic != null ? searchEpic.toString() : "Epic не найден";
     }
