@@ -9,21 +9,21 @@ public class Task {
     private int id;
     private Status status;
 
-    public Task(String title, String description, int id, Status status){
+    public Task(String title, String description, int id, Status status) {
         this.title = title;
         this.description = description;
         this.id = id;
         this.status = status;
     }
 
-    public Task(String title, String description, int id){
+    public Task(String title, String description, int id) {
         this.title = title;
         this.description = description;
         this.id = id;
         this.status = Status.NEW;
     }
 
-    public Task(){
+    public Task() {
     }
 
     public String getTitle() {
