@@ -128,8 +128,11 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void deleteSubTaskById(int subTaskId) {
         if (subTaskList.get(subTaskId) != null) {
+            Epic tempEpic = epicList.get(subTaskList.get(subTaskId).getEpicId());
             subTaskList.remove(subTaskId);
             historyManager.remove(subTaskId);
+            tempEpic.getSubTaskList().remove(subTaskId);
+            updateStatusEpic(tempEpic);
         }
     }
 
@@ -150,6 +153,9 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void updateStatusEpic(Epic epic) {
         int counterSubTask = 0;
+        if (epic.getSubTaskList().isEmpty()) {
+            epic.setStatus(Status.NEW);
+        }
         for (SubTask subTask : epic.getSubTaskList().values()) {
             if (subTask.getStatus() == Status.IN_PROGRESS) {
                 epic.setStatus(Status.IN_PROGRESS);
@@ -157,7 +163,7 @@ public class InMemoryTaskManager implements TaskManager {
                 counterSubTask++;
             }
         }
-        if (counterSubTask == epic.getSubTaskList().size()) {
+        if (counterSubTask == epic.getSubTaskList().size() && counterSubTask != 0) {
             epic.setStatus(Status.DONE);
         }
     }
