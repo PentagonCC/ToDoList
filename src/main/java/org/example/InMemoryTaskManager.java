@@ -95,61 +95,55 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void changeTask(Task chagedTask, int idOLdTask) {
-        for (Integer id : taskList.keySet()) {
-            if (id.equals(idOLdTask)) {
-                taskList.put(id, chagedTask);
-            }
+    public void changeTask(Task chagedTask, int idTask) {
+        if (taskList.get(idTask) != null) {
+            taskList.put(idTask, chagedTask);
         }
     }
 
     @Override
-    public void changeSubTask(SubTask changedSubtask, int idOLdSubTask) {
-        for (Integer id : subTaskList.keySet()) {
-            if (id.equals(idOLdSubTask)) {
-                subTaskList.put(id, changedSubtask);
-                epicList.get(changedSubtask.getEpicId()).getSubTaskList().put(id, changedSubtask);
-                updateStatusEpic(epicList.get(changedSubtask.getEpicId()));
-            }
+    public void changeSubTask(SubTask changedSubtask, int idTask) {
+        if (subTaskList.get(idTask) != null) {
+            subTaskList.put(idTask, changedSubtask);
+            epicList.get(changedSubtask.getEpicId()).getSubTaskList().put(idTask, changedSubtask);
+            updateStatusEpic(epicList.get(changedSubtask.getEpicId()));
+
         }
     }
 
     @Override
-    public void changeEpic(Epic changedEpic, int idOLdEpic) {
-        for (Integer id : epicList.keySet()) {
-            if (id.equals(idOLdEpic)) {
-                epicList.put(id, changedEpic);
-            }
+    public void changeEpic(Epic changedEpic, int idEpic) {
+        if (epicList.get(idEpic) != null) {
+            epicList.put(idEpic, changedEpic);
         }
     }
 
     @Override
     public void deleteTaskById(int taskId) {
-        for (Integer id : taskList.keySet()) {
-            if (id.equals(taskId)) {
-                taskList.remove(taskId);
-            }
+        if (taskList.get(taskId) != null) {
+            taskList.remove(taskId);
         }
     }
 
     @Override
     public void deleteSubTaskById(int subTaskId) {
-        for (Integer id : subTaskList.keySet()) {
-            if (id.equals(subTaskId)) {
-                subTaskList.remove(subTaskId);
-                return;
-            }
+        if (subTaskList.get(subTaskId) != null) {
+            subTaskList.remove(subTaskId);
+            historyManager.remove(subTaskId);
         }
     }
 
     @Override
     public void deleteEpicById(int epicId) {
-        for (Integer id : epicList.keySet()) {
-            if (id.equals(epicId)) {
-                epicList.get(epicId).getSubTaskList().clear();
-                epicList.remove(epicId);
-                return;
+        if (epicList.get(epicId) != null) {
+            for (SubTask subTask : epicList.get(epicId).getSubTaskList().values()) {
+                if (subTask.getEpicId() == epicId) {
+                    historyManager.remove(subTask.getId());
+                }
             }
+            epicList.get(epicId).getSubTaskList().clear();
+            epicList.remove(epicId);
+            historyManager.remove(epicId);
         }
     }
 

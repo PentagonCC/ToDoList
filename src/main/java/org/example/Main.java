@@ -7,7 +7,7 @@ public class Main {
         Epic epic2 = new Epic("pool", "go swim", manager.epicId++);
         SubTask subTask1 = new SubTask("made math", "calculate number", manager.subTaskId++, epic1.getId());
         SubTask subTask2 = new SubTask("made math", "calculate number 2", manager.subTaskId++, epic1.getId());
-        SubTask subTask3 = new SubTask("search", "search place for swimming", manager.subTaskId++, epic1.getId());
+        SubTask subTask3 = new SubTask("search", "search place for swimming", manager.subTaskId++, epic2.getId());
         manager.createEpic(epic1);
         manager.createEpic(epic2);
         manager.createSubTask(subTask1);
@@ -24,10 +24,14 @@ public class Main {
 //        System.out.println(manager.history());
         manager.getEpicById(0);
         manager.getEpicById(1);
-        manager.getSubTaskById(2);
+        manager.getSubTaskById(1);
         System.out.println(manager.historyManager.getHistory());
 //        System.out.println(manager.getEpicList());
-//        manager.deleteSubTaskById(3);
-//        manager.deleteEpicById(1);
+//        manager.deleteSubTaskById(1);
+        manager.deleteEpicById(0);
+        System.out.println("----------------------------------------------");
+        System.out.println(manager.historyManager.getHistory());
+//        System.out.println("----------------------------------------------");
+//        System.out.println(epic1.getSubTaskList());
     }
 }
