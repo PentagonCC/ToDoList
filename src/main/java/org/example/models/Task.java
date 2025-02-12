@@ -1,6 +1,4 @@
-package org.example;
-
-import java.util.List;
+package org.example.models;
 
 public class Task {
 
@@ -58,12 +56,15 @@ public class Task {
         this.status = status;
     }
 
+    public TaskType getType(){
+        return TaskType.TASK;
+    }
+
     @Override
     public String toString() {
-        return "Task: " +
-                title + '\n' +
-                description + '\n' +
-                id + '\n' +
+        return title + ", " +
+                description + ", " +
+                id + ", " +
                 status;
     }
 }

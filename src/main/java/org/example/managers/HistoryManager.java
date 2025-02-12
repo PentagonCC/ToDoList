@@ -1,4 +1,6 @@
-package org.example;
+package org.example.managers;
+
+import org.example.models.Task;
 
 import java.util.List;
 

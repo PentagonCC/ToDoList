@@ -1,14 +1,19 @@
-package org.example;
+package org.example.managers;
+
+import org.example.models.Epic;
+import org.example.models.Status;
+import org.example.models.SubTask;
+import org.example.models.Task;
 
 import java.util.HashMap;
 
 
 public class InMemoryTaskManager implements TaskManager {
 
-    private final HashMap<Integer, Task> taskList;
-    private final HashMap<Integer, Epic> epicList;
-    private final HashMap<Integer, SubTask> subTaskList;
-    public HistoryManager historyManager = Managers.getDefaultHistory();
+    protected final HashMap<Integer, Task> taskList;
+    protected final HashMap<Integer, Epic> epicList;
+    protected final HashMap<Integer, SubTask> subTaskList;
+    protected final HistoryManager historyManager = Managers.getDefaultHistory();
     public int taskId = 0;
     public int epicId = 0;
     public int subTaskId = 0;

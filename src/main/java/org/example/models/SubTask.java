@@ -1,4 +1,4 @@
-package org.example;
+package org.example.models;
 
 public class SubTask extends Task {
 
@@ -9,6 +9,10 @@ public class SubTask extends Task {
         this.epicId = epicId;
     }
 
+    public SubTask(String title, String description, int id, Status status, int epicId) {
+        super(title, description, id, status);
+        this.epicId = epicId;
+    }
 
     public int getEpicId() {
         return epicId;
@@ -18,8 +22,12 @@ public class SubTask extends Task {
         this.epicId = epicId;
     }
 
+    public TaskType getType(){
+        return TaskType.SUBTASK;
+    }
+
     @Override
     public String toString() {
-        return super.toString() + '\n' + "Связана с эпиком:" + epicId;
+        return super.toString() + "," + epicId;
     }
 }

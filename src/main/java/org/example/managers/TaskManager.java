@@ -1,7 +1,10 @@
-package org.example;
+package org.example.managers;
+
+import org.example.models.Epic;
+import org.example.models.SubTask;
+import org.example.models.Task;
 
 import java.util.HashMap;
-import java.util.List;
 
 interface TaskManager {
 
