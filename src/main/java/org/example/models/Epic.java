@@ -1,6 +1,7 @@
 package org.example.models;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Epic extends Task {
 
@@ -18,8 +19,16 @@ public class Epic extends Task {
         return subTaskList;
     }
 
-    public TaskType getType(){
+    public TaskType getType() {
         return TaskType.EPIC;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Epic epic = (Epic) o;
+        return Objects.equals(getTitle(), epic.getTitle()) && Objects.equals(getDescription(), epic.getDescription()) &&
+                getId() == epic.getId() && Objects.equals(getStatus(), epic.getStatus());
+    }
 }

@@ -1,5 +1,7 @@
 package org.example.models;
 
+import java.util.Objects;
+
 public class Task {
 
     private String title;
@@ -66,6 +68,15 @@ public class Task {
                 description + ", " +
                 id + ", " +
                 status;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return Objects.equals(title, task.title) && Objects.equals(description, task.description) && id == task.id &&
+                Objects.equals(status, task.status);
     }
 }
 

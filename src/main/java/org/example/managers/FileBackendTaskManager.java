@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class FileBackendTaskManager extends InMemoryTaskManager {
 
-    private final File FILE = new File("./resources/tasks.csv");
+    private final File FILE = new File("src/main/resources/tasks.csv");
     private static final String FIRST_LINE = "id,type,title,status,description,epic";
 
     public FileBackendTaskManager() {
