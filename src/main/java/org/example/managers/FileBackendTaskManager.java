@@ -4,6 +4,7 @@ import org.example.exceptions.ManagerSaveException;
 import org.example.models.*;
 
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.stream.Collectors;
 public class FileBackendTaskManager extends InMemoryTaskManager {
 
     private final File FILE = new File("src/main/resources/tasks.csv");
-    private static final String FIRST_LINE = "id,type,title,status,description,epic";
+    private static final String FIRST_LINE = "id,type,title,status,description,startTime, endTime, duration, epic";
 
     public FileBackendTaskManager() {
     }
@@ -32,14 +33,14 @@ public class FileBackendTaskManager extends InMemoryTaskManager {
                 String[] value = fileLines.get(i).split(",");
                 Task task = taskFromString(value);
                 history.put(task.getId(), task);
-                switch (task.getType()){
+                switch (task.getType()) {
                     case TASK:
                         FBTM.taskList.put(task.getId(), task);
                         break;
                     case SUBTASK:
-                        FBTM.subTaskList.put(task.getId(),(SubTask) task);
+                        FBTM.subTaskList.put(task.getId(), (SubTask) task);
                         int epicId = ((SubTask) task).getEpicId();
-                        FBTM.getEpicList().get(epicId).getSubTaskList().put(task.getId(),(SubTask) task);
+                        FBTM.getEpicList().get(epicId).getSubTaskList().put(task.getId(), (SubTask) task);
                         FBTM.updateStatusEpic(FBTM.getEpicList().get(epicId));
                         break;
                     case EPIC:
@@ -47,7 +48,7 @@ public class FileBackendTaskManager extends InMemoryTaskManager {
                         break;
                 }
             }
-            for(Integer id: taskHistoryId){
+            for (Integer id : taskHistoryId) {
                 FBTM.historyManager.add(history.get(id));
             }
         } catch (IOException e) {
@@ -58,17 +59,20 @@ public class FileBackendTaskManager extends InMemoryTaskManager {
 
     private String toString(Task task) {
         return task.getId() + "," + task.getType() + "," + task.getTitle() + "," + task.getStatus() + ","
-                + task.getDescription();
+                + task.getDescription() + "," + task.getStringStartTime() + "," + task.getStringEndTime() + "," +
+                task.getDuration();
     }
 
     private String toString(SubTask subTask) {
         return subTask.getId() + "," + subTask.getType() + "," + subTask.getTitle() + "," + subTask.getStatus() + ","
-                + subTask.getDescription() + "," + subTask.getEpicId();
+                + subTask.getDescription() + "," + subTask.getStringStartTime() + "," + subTask.getStringEndTime() +
+                "," + subTask.getDuration() + "," + subTask.getEpicId();
     }
 
     private String toString(Epic epic) {
         return epic.getId() + "," + epic.getType() + "," + epic.getTitle() + "," + epic.getStatus() + ","
-                + epic.getDescription();
+                + epic.getDescription() + "," + epic.getStringStartTime() + "," +epic.getStringEndTime() + "," +
+                epic.getDuration();
     }
 
     private Task taskFromString(String[] value) {
@@ -77,14 +81,24 @@ public class FileBackendTaskManager extends InMemoryTaskManager {
         String taskTitle = value[2];
         Status taskStatus = Status.valueOf(value[3]);
         String taskDescription = value[4];
+        LocalDateTime startTime;
+        LocalDateTime endTime;
+        if (!value[5].equals("null")) {
+            startTime = LocalDateTime.parse(value[5]);
+            endTime = LocalDateTime.parse(value[6]);
+        } else {
+            startTime = null;
+            endTime = null;
+        }
+        long duration = Long.parseLong(value[7]);
         switch (taskType) {
             case EPIC:
-                return new Epic(taskTitle, taskDescription, taskId, taskStatus);
+                return new Epic(taskTitle, taskDescription, taskId, taskStatus, duration, startTime, endTime);
             case TASK:
-                return new Task(taskTitle, taskDescription, taskId, taskStatus);
+                return new Task(taskTitle, taskDescription, taskId, taskStatus, duration, startTime);
             case SUBTASK:
                 int epicId = Integer.parseInt(value[5]);
-                return new SubTask(taskTitle, taskDescription, taskId, taskStatus, epicId);
+                return new SubTask(taskTitle, taskDescription, taskId, taskStatus, epicId, duration, startTime);
         }
         return null;
     }

@@ -1,18 +1,19 @@
 package org.example.models;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class SubTask extends Task {
 
     private int epicId;
 
-    public SubTask(String title, String description, int id, int epicId) {
-        super(title, description, id);
+    public SubTask(String title, String description, int id, int epicId, long duration, LocalDateTime timeStart) {
+        super(title, description, id, duration, timeStart);
         this.epicId = epicId;
     }
 
-    public SubTask(String title, String description, int id, Status status, int epicId) {
-        super(title, description, id, status);
+    public SubTask(String title, String description, int id, Status status, int epicId, long duration, LocalDateTime timeStart) {
+        super(title, description, id, status, duration, timeStart);
         this.epicId = epicId;
     }
 

@@ -5,6 +5,7 @@ import org.example.models.SubTask;
 import org.example.models.Task;
 
 import java.util.HashMap;
+import java.util.List;
 
 interface TaskManager {
 
@@ -45,6 +46,10 @@ interface TaskManager {
     void deleteEpicById(int epicId);
 
     void updateStatusEpic(Epic epic);
+
+    void setEpicDateTime(int epicId);
+
+    List<Task> getPrioritizedTasks();
 
     HashMap<Integer, SubTask> getEpicSubTask(Epic epic);
 
