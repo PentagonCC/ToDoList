@@ -71,7 +71,7 @@ public class FileBackendTaskManager extends InMemoryTaskManager {
 
     private String toString(Epic epic) {
         return epic.getId() + "," + epic.getType() + "," + epic.getTitle() + "," + epic.getStatus() + ","
-                + epic.getDescription() + "," + epic.getStringStartTime() + "," +epic.getStringEndTime() + "," +
+                + epic.getDescription() + "," + epic.getStringStartTime() + "," + epic.getStringEndTime() + "," +
                 epic.getDuration();
     }
 
@@ -164,22 +164,22 @@ public class FileBackendTaskManager extends InMemoryTaskManager {
     }
 
     @Override
-    public String getTaskById(int taskId) {
-        String task = super.getTaskById(taskId);
+    public Task getTaskById(int taskId) {
+        Task task = super.getTaskById(taskId);
         save();
         return task;
     }
 
     @Override
-    public String getSubTaskById(int subTaskId) {
-        String subTask = super.getTaskById(subTaskId);
+    public SubTask getSubTaskById(int subTaskId) {
+        SubTask subTask = super.getSubTaskById(subTaskId);
         save();
         return subTask;
     }
 
     @Override
-    public String getEpicById(int epicId) {
-        String epic = super.getEpicById(epicId);
+    public Epic getEpicById(int epicId) {
+        Epic epic = super.getEpicById(epicId);
         save();
         return epic;
     }

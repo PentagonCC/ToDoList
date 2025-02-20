@@ -62,30 +62,30 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public String getTaskById(int taskId) {
+    public Task getTaskById(int taskId) {
         Task searchTask = taskList.get(taskId);
         if (searchTask != null) {
             historyManager.add(searchTask);
         }
-        return searchTask != null ? searchTask.toString() : "Задача не найдена";
+        return searchTask;
     }
 
     @Override
-    public String getSubTaskById(int subTaskId) {
+    public SubTask getSubTaskById(int subTaskId) {
         SubTask searchTask = subTaskList.get(subTaskId);
         if (searchTask != null) {
             historyManager.add(searchTask);
         }
-        return searchTask != null ? searchTask.toString() : "Подзадача не найдена";
+        return searchTask;
     }
 
     @Override
-    public String getEpicById(int epicId) {
+    public Epic getEpicById(int epicId) {
         Epic searchEpic = epicList.get(epicId);
         if (searchEpic != null) {
             historyManager.add(searchEpic);
         }
-        return searchEpic != null ? searchEpic.toString() : "Epic не найден";
+        return searchEpic;
     }
 
     @Override

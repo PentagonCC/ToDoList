@@ -21,11 +21,11 @@ interface TaskManager {
 
     void clearEpicList();
 
-    String getTaskById(int taskId);
+    Task getTaskById(int taskId);
 
-    String getSubTaskById(int subTaskId);
+    SubTask getSubTaskById(int subTaskId);
 
-    String getEpicById(int epicId);
+    Epic getEpicById(int epicId);
 
     void createTask(Task newTask);
 
