@@ -3,7 +3,7 @@ package org.example.managers;
 public class Managers {
 
     public static TaskManager getDefault() {
-        return new InMemoryTaskManager();
+        return new FileBackendTaskManager();
     }
 
     public static HistoryManager getDefaultHistory() {
